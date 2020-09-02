@@ -28,7 +28,9 @@ func StartServer(server *GoSyncServer) {
 	http.HandleFunc("/override", routes.OverrideRoute)
 	http.Handle("/", http.FileServer(http.Dir(server.RootDirectory)))
 
+	log.Printf("Listening on port %d\n", server.Port)
 	err := http.ListenAndServe(":"+strconv.Itoa(server.Port), nil)
+
 	if err != nil {
 		log.Fatal(err)
 	}
