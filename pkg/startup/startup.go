@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/classAndrew/GoSync/pkg/routes"
+
 	"github.com/classAndrew/GoSync/pkg/setup"
 )
 
@@ -23,10 +25,7 @@ func StartServer(server *GoSyncServer) {
 	}
 	contents, _ := ioutil.ReadFile("./config.json")
 	json.Unmarshal(contents, server)
-	handler := func(w http.ResponseWriter, req *http.Request) {
-		w.Write([]byte("This is an overridden route\n"))
-	}
-	http.HandleFunc("/override", handler)
+	http.HandleFunc("/override", routes.OverrideRoute)
 	http.Handle("/", http.FileServer(http.Dir(server.RootDirectory)))
 
 	err := http.ListenAndServe(":"+strconv.Itoa(server.Port), nil)
