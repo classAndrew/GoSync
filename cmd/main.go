@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	var server startup.GoSyncServer
-	startup.StartServer(&server)
+	startup.ServeFiles()
 }
