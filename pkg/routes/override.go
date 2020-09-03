@@ -10,7 +10,7 @@ import (
 
 // OverrideRoute handler
 func OverrideRoute(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte("overridden route\n"))
+	w.Write([]byte("Overridden route\n"))
 }
 
 // StatusRoute gets status of the server and returns as response
