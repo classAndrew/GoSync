@@ -2,8 +2,9 @@ package routes
 
 import (
 	"net/http"
-	"os"
 	"strconv"
+
+	"github.com/classAndrew/GoSync/pkg/status"
 
 	"github.com/classAndrew/GoSync/pkg/serverinfo"
 )
@@ -15,9 +16,6 @@ func OverrideRoute(w http.ResponseWriter, req *http.Request) {
 
 // StatusRoute gets status of the server and returns as response
 func StatusRoute(w http.ResponseWriter, req *http.Request) {
-	status, err := os.Stat(serverinfo.Server.RootDirectory)
-	if err != nil {
-		w.Write([]byte(err.Error()))
-	}
-	w.Write([]byte(status.Name() + "\n" + strconv.Itoa(int(status.Size()))))
+	stat := status.GetFilesSize(serverinfo.Server.RootDirectory)
+	w.Write([]byte(serverinfo.Server.RootDirectory + "\n" + strconv.Itoa(stat)))
 }

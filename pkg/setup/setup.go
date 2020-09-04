@@ -35,8 +35,8 @@ func FirstSetup() {
 	defer f.Close()
 	fmt.Println(portint)
 	marshalled, _ := json.Marshal(struct {
-		RootDir string
-		Port    int
+		RootDirectory string
+		Port          int
 	}{rootdir[:len(rootdir)-1], portint})
 	f.Write(marshalled)
 
