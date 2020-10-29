@@ -6,9 +6,11 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/classAndrew/GoSync/pkg/routes"
 	"github.com/classAndrew/GoSync/pkg/serverinfo"
+	"github.com/classAndrew/GoSync/pkg/status"
 
 	"github.com/classAndrew/GoSync/pkg/setup"
 )
@@ -26,6 +28,7 @@ func StartServer(server *serverinfo.GoSyncServer) {
 	contents, _ := ioutil.ReadFile("./config.json")
 	json.Unmarshal(contents, &serverinfo.Server)
 	log.Println(serverinfo.Server.RootDirectory)
+	status.StartTime = time.Now()
 	http.HandleFunc("/override", routes.OverrideRoute)
 	http.HandleFunc("/status", routes.StatusRoute)
 	http.Handle("/", http.FileServer(http.Dir(serverinfo.Server.RootDirectory)))
